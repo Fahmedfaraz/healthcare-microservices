@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: practitioner-notes-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - practitioner-network
+
+  practitioner-notes:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: practitioner-notes-app
+    ports:
+      - "9095:9095"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/practitioner-notes
+    networks:
+      - practitioner-network
+
+networks:
+  practitioner-network:
+    driver: bridge

@@ -1,0 +1,34 @@
+services:
+  my-sql-server:
+    container_name: my-sql-server
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=patient-demographics
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=admin
+    ports:
+      - "3306:3306"
+    networks:
+      - mediscreen-network
+
+  patient-demographics:
+    container_name: patient-demographics-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - my-sql-server
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://my-sql-server:3306/patient-demographics
+      - SPRING_DATASOURCE_USERNAME=mysql
+      - SPRING_DATASOURCE_PASSWORD=admin
+    networks:
+      - mediscreen-network
+
+networks:
+  mediscreen-network:
+    driver: bridge
+      

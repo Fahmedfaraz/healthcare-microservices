@@ -1,0 +1,17 @@
+# Use the official MySQL Docker image
+FROM mysql:latest
+
+# Set the MySQL root password (replace with your desired password)
+ENV MYSQL_ROOT_PASSWORD=admin
+
+# Set a non-root user and password (replace with your desired username and password)
+ENV MYSQL_USER=mysql
+ENV MYSQL_PASSWORD=admin
+
+# (Optional) Create a new database (replace with your desired database name)
+ENV MYSQL_DATABASE=patient-demographics
+
+# Expose the MySQL port
+EXPOSE 3306
+
+COPY ./init.sql /docker-entrypoint-initdb.d/
