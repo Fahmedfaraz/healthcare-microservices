@@ -1,0 +1,10 @@
+
+networks:
+  mediscreen-network-main:
+    driver: bridge
+    
+include:
+  - mediscreen.patient-demographics/docker-compose.yml
+  - mediscreen.practitioner-notes/docker-compose.yml
+  - mediscreen.diabetes-assessment/docker-compose.yml
+

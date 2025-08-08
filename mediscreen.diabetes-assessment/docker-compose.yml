@@ -1,0 +1,16 @@
+
+services:
+  diabetes-assessment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: diabetes-assessment
+    ports:
+      - "9050:9050"  # Change if needed
+    networks:
+      - mediscreen-network-ds
+
+networks:
+  mediscreen-network-ds:
+    name: mediscreen-network-main
+    external: true

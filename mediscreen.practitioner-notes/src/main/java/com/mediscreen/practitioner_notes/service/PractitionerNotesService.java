@@ -23,4 +23,10 @@ public class PractitionerNotesService {
 			return practitionerNotesRepository.save(pNotes);
 			
 		}
+//		Find by Patient ID
+		public List<PractitionerNotes> getAllNotesByPatientId(String patientId) {
+			return practitionerNotesRepository.findByPatId(patientId);
+			
+			
+		}
 }

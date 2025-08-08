@@ -10,7 +10,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - mediscreen-network
+      - mediscreen-network-pd
 
   patient-demographics:
     container_name: patient-demographics-app
@@ -26,9 +26,11 @@ services:
       - SPRING_DATASOURCE_USERNAME=mysql
       - SPRING_DATASOURCE_PASSWORD=admin
     networks:
-      - mediscreen-network
+      - mediscreen-network-pd
 
 networks:
-  mediscreen-network:
-    driver: bridge
+  mediscreen-network-pd:
+   name: mediscreen-network-main
+   external: true
+  
       
