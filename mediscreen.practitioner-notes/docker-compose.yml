@@ -7,7 +7,8 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - mediscreen-network-pn
+      - mediscreen-network-main
+#      - mediscreen-network-pn
 
   practitioner-notes:
     build:
@@ -21,10 +22,14 @@ services:
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/practitioner-notes
     networks:
-      - mediscreen-network-pn
+      - mediscreen-network-main
+#      - mediscreen-network-pn
 
 networks:
-  mediscreen-network-pn:
-   name: mediscreen-network-main
-   external: true
+  mediscreen-network-main:
+   driver: bridge
+ 
+#   name: mediscreen-network-main
+#   external: true
+
   

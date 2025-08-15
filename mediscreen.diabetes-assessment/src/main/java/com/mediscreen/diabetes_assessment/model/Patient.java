@@ -2,43 +2,24 @@ package com.mediscreen.diabetes_assessment.model;
 
 import java.util.Date;
 
-import jakarta.persistence.*;
-
-
-@Entity
-@Table(name = "patient")
-//@Data
-//@Getter
-//@Setter
 public class Patient {
-	@Id
-	   @GeneratedValue(strategy = GenerationType.IDENTITY)
-	   private long patient_id;
 
-	   @Column(name = "familyname", nullable = true)
-	   private String family;
-	   
-	   @Column(name = "givenname", nullable = false)
-	   private String given;
-	   
-	   @Column(name = "dateofbirth", nullable = false)
-	   private Date dob;
-	   
-	   @Column(name = "streetaddress", nullable = true)
-	   private String address;
-	   
-	   @Column(name = "sex", nullable = false)
-	   private String sex;
-	   
-	   @Column(name = "phone", nullable = true)
-	   private String phone;
+	private Long patientId;
 
-	public long getPatient_id() {
-		return patient_id;
+	private String family;
+
+	private String given;
+
+	private Date dob;
+
+	private String sex;
+
+	public Long getPatientId() {
+		return patientId;
 	}
 
-	public void setPatient_id(long patient_id) {
-		this.patient_id = patient_id;
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getFamily() {
@@ -65,14 +46,6 @@ public class Patient {
 		this.dob = dob;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getSex() {
 		return sex;
 	}
@@ -81,11 +54,4 @@ public class Patient {
 		this.sex = sex;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 }

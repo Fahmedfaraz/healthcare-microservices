@@ -1,32 +1,27 @@
 package com.mediscreen.diabetes_assessment.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import jakarta.persistence.Entity;
-
-@Document(collection = "practitioner-notes")
-//@Entity
 public class PractitionerNotes {
-    @Id
-    private String patId;
-    private String note;
-    
-    // Getters and setters
-	public String getPatId() {
-		return patId;
-	}
-	public void setPatId(String patId) {
-		this.patId = patId;
-	}
+
+	private Long patientId;
+	private String note;
+
+	// Getters and setters
+	
+
 	public String getNote() {
 		return note;
 	}
+
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
+	}
+
 	public void setNote(String note) {
 		this.note = note;
 	}
-   
 
-   
-    
 }

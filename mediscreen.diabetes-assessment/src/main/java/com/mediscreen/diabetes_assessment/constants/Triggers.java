@@ -7,10 +7,12 @@ public class Triggers {
    /* *
     * @return A list of triggers.
     */
-	   public List<String> getTriggers() {
+	   public static List<String> getTriggers() {
 	       return Arrays.asList(
 	               "Hemoglobin A1C", "Microalbumin", "Body Height", "Body Weight", "Smoker",
 	               "Abnormal", "Cholesterol", "Dizziness", "Relapse", "Reaction", "Antibodies"
 	       );
 	   }
+	   
+	  
 }

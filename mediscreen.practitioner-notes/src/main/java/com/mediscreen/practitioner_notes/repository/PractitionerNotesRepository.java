@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.mediscreen.practitioner_notes.model.PractitionerNotes;
 
 @Repository
-public interface PractitionerNotesRepository extends MongoRepository<PractitionerNotes,String> {
+public interface PractitionerNotesRepository extends MongoRepository<PractitionerNotes,Long> {
 
-	List<PractitionerNotes> findByPatId(String patId);
+	List<PractitionerNotes> findBypatientId(Long patientId);
 }

@@ -20,7 +20,7 @@ public class PatientService {
 	}
 
 //	// Get Patient by givenName
-	public Patient getPatient(Patient name) {
+	public Patient getPatient(String name) {
 //		return patientRepository.findByGivenName(name).orElseThrow(() -> new RuntimeException("Patient not found with name: " + givenName));
 		Patient patient = patientRepository.findByGivenName(name);
 		if (patient != null) {
@@ -31,6 +31,14 @@ public class PatientService {
 
 	}
 
+	public Patient getPatientById(Long patientId) {
+		Patient patient = patientRepository.findByPatientId(patientId);
+		if (patient != null) {
+			return patient;
+		} else {
+			throw new RuntimeException("Patient not found with PatientID: " + patientId);
+		}
+	}
 //	Add new patient
 	public Patient savePatient(Patient patient) {
 		return patientRepository.save(patient);
@@ -46,10 +54,10 @@ public class PatientService {
 			update.setPhone(patient.getPhone());
 			update.setAddress(patient.getAddress());
 			return patientRepository.save(update);
-//			return null;
 		} else {
 			throw new RuntimeException("Patient not found with name: " + patient);
 		}
 	}
+
 
 }

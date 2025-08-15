@@ -28,7 +28,7 @@ public class PractitionerNotesController {
 	}
 	
 	@GetMapping("/patient/{patientId}")
-	public List<PractitionerNotes> getNotesByPatientId(@PathVariable String patientId) {	
+	public List<PractitionerNotes> getNotesByPatientId(@PathVariable Long patientId) {	
 		return practitionerNotesService.getAllNotesByPatientId(patientId);		
 	}
 

@@ -15,7 +15,8 @@ import lombok.Setter;
 public class Patient {
 	@Id
 	   @GeneratedValue(strategy = GenerationType.IDENTITY)
-	   private long patient_id;
+		@Column(name = "patient_id", nullable = false)
+	   private Long patientId;
 
 	   @Column(name = "familyname", nullable = true)
 	   private String family;
@@ -35,13 +36,22 @@ public class Patient {
 	   @Column(name = "phone", nullable = true)
 	   private String phone;
 
-	public long getPatient_id() {
-		return patient_id;
+//	public Long getPatient_id() {
+//		return patient_id;
+//	}
+//
+//	public void setPatient_id(Long patient_id) {
+//		this.patient_id = patient_id;
+//	}
+	   
+	public Long getPatientId() {
+		return patientId;
 	}
 
-	public void setPatient_id(long patient_id) {
-		this.patient_id = patient_id;
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
 	}
+		
 
 	public String getFamily() {
 		return family;

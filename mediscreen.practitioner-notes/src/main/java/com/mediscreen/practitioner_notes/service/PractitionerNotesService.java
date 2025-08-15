@@ -24,8 +24,8 @@ public class PractitionerNotesService {
 			
 		}
 //		Find by Patient ID
-		public List<PractitionerNotes> getAllNotesByPatientId(String patientId) {
-			return practitionerNotesRepository.findByPatId(patientId);
+		public List<PractitionerNotes> getAllNotesByPatientId(Long patientId) {
+			return practitionerNotesRepository.findBypatientId(patientId);
 			
 			
 		}

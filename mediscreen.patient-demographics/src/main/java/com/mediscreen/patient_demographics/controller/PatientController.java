@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +28,15 @@ public class PatientController {
 
 //  Get Patient by givenName
 	@GetMapping("/patient")
-	public Patient getPatient(@RequestParam(name = "name") Patient name) {
+	public Patient getPatient(@RequestParam(name = "name") String name) {
 		Patient patient = patientService.getPatient(name);
+		return patient;
+	}
+	
+//  Get Patient by PatientID
+	@GetMapping("/patient/{patientId}")
+	public Patient getPatientByID(@PathVariable Long patientId) {
+		Patient patient = patientService.getPatientById(patientId);
 		return patient;
 	}
 
@@ -40,8 +48,7 @@ public class PatientController {
 	
 //	Update Patient
 	@PutMapping("/patient")
-//	public Patient updatePatient(@RequestBody Patient patient) {
-	 public Patient updatePatient(@RequestParam("patientId") long patientId, @RequestBody Patient patient) {
+	 public Patient updatePatient(@RequestParam("patientId") Long patientId, @RequestBody Patient patient) {
 		return patientService.updatePatient(patientId, patient);
 		
 	}

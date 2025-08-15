@@ -10,23 +10,22 @@ public class PractitionerNotes {
     @Id
     
     private String id;
-    private String patId;
+    private Long patientId;
     private String note;
     
     // Getters and setters
-    
-    
-	public String getPatId() {
-		return patId;
-	}
+
 	public String getId() {
 		return id;
 	}
+	public Long getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
+	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public void setPatId(String patId) {
-		this.patId = patId;
 	}
 	public String getNote() {
 		return note;
