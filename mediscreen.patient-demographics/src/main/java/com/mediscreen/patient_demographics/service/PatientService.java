@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mediscreen.patient_demographics.exception.UserNotFoundException;
 import com.mediscreen.patient_demographics.model.Patient;
 import com.mediscreen.patient_demographics.repository.PatientRepository;
 
@@ -14,6 +15,10 @@ public class PatientService {
 	@Autowired
 	private PatientRepository patientRepository;
 
+//	Constructor injection
+	public PatientService(PatientRepository patientRepository) {
+	        this.patientRepository = patientRepository;
+	    }
 	// Get all Patients
 	public List<Patient> getPatients() {
 		return patientRepository.findAll();
@@ -21,12 +26,11 @@ public class PatientService {
 
 //	// Get Patient by givenName
 	public Patient getPatient(String name) {
-//		return patientRepository.findByGivenName(name).orElseThrow(() -> new RuntimeException("Patient not found with name: " + givenName));
 		Patient patient = patientRepository.findByGivenName(name);
 		if (patient != null) {
 			return patient;
 		} else {
-			throw new RuntimeException("Patient not found with name: " + name);
+			throw new UserNotFoundException("Patient not found with name: " + name);
 		}
 
 	}
@@ -36,7 +40,7 @@ public class PatientService {
 		if (patient != null) {
 			return patient;
 		} else {
-			throw new RuntimeException("Patient not found with PatientID: " + patientId);
+			throw new UserNotFoundException("Patient not found with PatientID: " + patientId);
 		}
 	}
 //	Add new patient
@@ -44,6 +48,7 @@ public class PatientService {
 		return patientRepository.save(patient);
 	}
 
+//	Update patient information
 	public Patient updatePatient(Long id,Patient patient) {
 		Optional<Patient> existingPatient = patientRepository.findById(id);
 		if (existingPatient.isPresent()) {
@@ -55,9 +60,8 @@ public class PatientService {
 			update.setAddress(patient.getAddress());
 			return patientRepository.save(update);
 		} else {
-			throw new RuntimeException("Patient not found with name: " + patient);
+			throw new UserNotFoundException("Patient not found with name: " + patient);
 		}
 	}
-
 
 }

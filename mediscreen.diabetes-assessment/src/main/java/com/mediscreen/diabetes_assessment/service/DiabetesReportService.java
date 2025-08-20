@@ -16,6 +16,7 @@ import com.mediscreen.diabetes_assessment.client.DoctorNotesClient;
 import com.mediscreen.diabetes_assessment.client.PatientClient;
 import com.mediscreen.diabetes_assessment.constants.RiskLevel;
 import com.mediscreen.diabetes_assessment.constants.Triggers;
+import com.mediscreen.diabetes_assessment.exception.ResourceNotFoundException;
 import com.mediscreen.diabetes_assessment.model.DiabetesReport;
 import com.mediscreen.diabetes_assessment.model.Patient;
 import com.mediscreen.diabetes_assessment.model.PractitionerNotes;
@@ -34,44 +35,52 @@ public class DiabetesReportService {
 		RiskLevel risk = null;
 
 		Patient patient = patientClient.getPatientById(patientId);
-		String birthDate = new SimpleDateFormat("yyyy-MM-dd").format(patient.getDob());
-		String claculatedAge = getAge(birthDate);
-		int age = Integer.parseInt(claculatedAge);
+		if (patient != null) {
+			String birthDate = new SimpleDateFormat("yyyy-MM-dd").format(patient.getDob());
+			String claculatedAge = getAge(birthDate);
+			int age = Integer.parseInt(claculatedAge);
 
-		List<PractitionerNotes> notes = doctorNoteClient.getNotesByPatientId(patientId);
-		int triggerCount = countTriggers(notes);
+			List<PractitionerNotes> notes = doctorNoteClient.getNotesByPatientId(patientId);
+			int triggerCount = countTriggers(notes);
 
-		if (triggerCount <= 1) {
+			if (triggerCount <= 1) {
 //	            log.info("Patient with id {} has no diabetes risk", patientId);
-			risk = RiskLevel.NONE;
+				risk = RiskLevel.NONE;
 
-		} else if (age >= 30) {
-			if (triggerCount >= 2 && triggerCount <= 5) {
-				risk = RiskLevel.BORDERLINE;
-			} else if (triggerCount >= 6 && triggerCount <= 7) {
-				risk = RiskLevel.IN_DANGER;
-			} else if (triggerCount >= 8) {
-				risk = RiskLevel.EARLY_ONSET;
+			} else if (age >= 30) {
+				if (triggerCount >= 2 && triggerCount <= 5) {
+					risk = RiskLevel.BORDERLINE;
+				} else if (triggerCount >= 6 && triggerCount <= 7) {
+					risk = RiskLevel.IN_DANGER;
+				} else if (triggerCount >= 8) {
+					risk = RiskLevel.EARLY_ONSET;
+				}
+			} else if (patient.getSex() == "M" && age <= 30) {
+				if (triggerCount >= 3 && triggerCount <= 4) {
+					risk = RiskLevel.IN_DANGER;
+				} else if (triggerCount >= 5) {
+					risk = RiskLevel.EARLY_ONSET;
+				}
+			} else if (patient.getSex() == "F" && age <= 30) {
+				if (triggerCount >= 4 && triggerCount <= 6) {
+					risk = RiskLevel.IN_DANGER;
+				} else if (triggerCount >= 7) {
+					risk = RiskLevel.EARLY_ONSET;
+				}
 			}
-		} else if (patient.getSex() == "M" && age <= 30) {
-			if (triggerCount >= 3 && triggerCount <= 4) {
-				risk = RiskLevel.IN_DANGER;
-			} else if (triggerCount >= 5) {
-				risk = RiskLevel.EARLY_ONSET;
-			}
-		} else if (patient.getSex() == "F" && age <= 30) {
-			if (triggerCount >= 4 && triggerCount <= 6) {
-				risk = RiskLevel.IN_DANGER;
-			} else if (triggerCount >= 7) {
-				risk = RiskLevel.EARLY_ONSET;
-			}
+
+			DiabetesReport diabetesReport = new DiabetesReport();
+			diabetesReport.setPatientId(patient.getPatientId());
+			diabetesReport.setFamily(patient.getFamily());
+			diabetesReport.setGiven(patient.getGiven());
+			diabetesReport.setAge(age);
+			diabetesReport.setSex(patient.getSex());
+			diabetesReport.setNotes(notes);
+			diabetesReport.setDiabetesRisk(risk);
+			return diabetesReport;
+		} else {
+			throw new ResourceNotFoundException("Patient not found with PatientID: " + patientId);
 		}
-
-		DiabetesReport diabetesReport = new DiabetesReport();
-		diabetesReport.setNotes(notes);
-		diabetesReport.setPatient(patient);
-		diabetesReport.setDiabetesRisk(risk);
-		return diabetesReport;
 	}
 
 	public String getAge(String birthDateStr) {

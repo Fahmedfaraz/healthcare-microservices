@@ -1,4 +1,4 @@
-package com.mediscreen.patient_demographics.exception;
+package com.mediscreen.practitioner_notes.exception;
 
 import java.time.LocalDateTime;
 
@@ -10,10 +10,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(Exception.class)
-	
 	public final ResponseEntity<ErrorDetails> handleAllExceptions(Exception ex, WebRequest request) throws Exception {
 		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), ex.getMessage(),
 				request.getDescription(false));

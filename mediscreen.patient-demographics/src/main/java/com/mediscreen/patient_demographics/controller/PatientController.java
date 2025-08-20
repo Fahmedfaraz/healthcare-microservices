@@ -20,7 +20,7 @@ public class PatientController {
 	@Autowired
 	private PatientService patientService;
 
-	// get all the patients in the table in sql database
+// get all the patients in the table in sql database
 	@GetMapping("/patients")
 	public List<Patient> getPatients() {
 		return patientService.getPatients();
@@ -50,7 +50,6 @@ public class PatientController {
 	@PutMapping("/patient")
 	 public Patient updatePatient(@RequestParam("patientId") Long patientId, @RequestBody Patient patient) {
 		return patientService.updatePatient(patientId, patient);
-		
 	}
 	
 	

@@ -16,17 +16,20 @@ import com.mediscreen.practitioner_notes.service.PractitionerNotesService;
 public class PractitionerNotesController {
 	@Autowired
 	PractitionerNotesService practitionerNotesService;
-	
+
+// get all the patients notes in the database
 	@GetMapping("/patHistory")
 	public List<PractitionerNotes> patHistory() {
 		return practitionerNotesService.getAllNotes();
 	}
 	
+// Add new patient note
 	@PostMapping("/patHistory/add")
 	public void addPatientHistory(@RequestBody PractitionerNotes pNotes) {
 		practitionerNotesService.savePatientHistory(pNotes);
 	}
 	
+// get patient notes by ID
 	@GetMapping("/patient/{patientId}")
 	public List<PractitionerNotes> getNotesByPatientId(@PathVariable Long patientId) {	
 		return practitionerNotesService.getAllNotesByPatientId(patientId);		

@@ -11,4 +11,7 @@ import com.mediscreen.practitioner_notes.model.PractitionerNotes;
 public interface PractitionerNotesRepository extends MongoRepository<PractitionerNotes,Long> {
 
 	List<PractitionerNotes> findBypatientId(Long patientId);
+//	List<PractitionerNotes> findById(String id);
+	PractitionerNotes findById(String id);
+
 }
