@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mediscreen.patient_demographics.exception.UserNotFoundException;
 import com.mediscreen.patient_demographics.model.Patient;
 import com.mediscreen.patient_demographics.service.PatientService;
+
 
 
 @RestController
@@ -41,6 +43,12 @@ public class PatientController {
 	@GetMapping("/patient/{patientId}")
 	public Patient getPatientByID(@PathVariable Long patientId) {
 		Patient patient = patientService.getPatientById(patientId);
+		
+		if( null == patient ) {
+			 throw new UserNotFoundException("Not found.");
+			
+		 }
+		
 		return patient;
 	}
 

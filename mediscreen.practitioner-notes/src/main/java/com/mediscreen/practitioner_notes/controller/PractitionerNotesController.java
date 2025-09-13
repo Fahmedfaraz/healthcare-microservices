@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.mediscreen.practitioner_notes.exception.UserNotFoundException;
 import com.mediscreen.practitioner_notes.model.PractitionerNotes;
 import com.mediscreen.practitioner_notes.service.PractitionerNotesService;
 
@@ -38,7 +38,11 @@ public class PractitionerNotesController {
 // get patient notes by ID
 	@GetMapping("/patient/{patientId}")
 	public List<PractitionerNotes> getNotesByPatientId(@PathVariable Long patientId) {	
-		return practitionerNotesService.getAllNotesByPatientId(patientId);		
+		List<PractitionerNotes> practitionerNotes = practitionerNotesService.getAllNotesByPatientId(patientId);
+		if (practitionerNotes == null || practitionerNotes.isEmpty()) {
+	        throw new UserNotFoundException("No PractitionerNotes found for Patient ID: " + patientId);
+	    }
+		return practitionerNotes;
 	}
 	
 //	Update Patient notes

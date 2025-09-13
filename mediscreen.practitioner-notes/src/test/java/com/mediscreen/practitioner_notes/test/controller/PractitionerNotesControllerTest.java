@@ -126,8 +126,10 @@ class PractitionerNotesControllerTest {
 	    when(practitionerNotesService.getAllNotesByPatientId(99L)).thenReturn(List.of());
 
 	    mockMvc.perform(get("/patient/{patientId}", 99L))
-	           .andExpect(status().isOk())
-	           .andExpect(jsonPath("$.length()").value(0));
+	           .andExpect(status().is4xxClientError());
+//	           .andExpect(status().isOk())
+	           
+//	           .andExpect(jsonPath("$.length()").value(0));
 	}
 	
 //Update note for the given id
@@ -157,5 +159,13 @@ class PractitionerNotesControllerTest {
 
 	
 	}
+	
+	@Test
+	void testGetPersonInfoNegative() throws Exception {
+		
+		
+		mockMvc.perform(get("/patient/{patientId}", -11199L))
+		.andExpect(status().is4xxClientError());
+	}	
 
 }

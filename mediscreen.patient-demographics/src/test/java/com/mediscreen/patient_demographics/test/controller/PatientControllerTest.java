@@ -92,6 +92,14 @@ class PatientControllerTest {
 		mockMvc.perform(get("/patient/1")).andExpect(status().isOk()).andExpect(jsonPath("$.patientId").value(1))
 				.andExpect(jsonPath("$.given").value("John"));
 	}
+	
+	@Test
+	void testGetPersonInfoNegative() throws Exception {
+		
+		
+		mockMvc.perform(get("/patient/3333"))
+		.andExpect(status().is4xxClientError());
+	}
 
 	@Test
 	void testAddPatient() throws JsonProcessingException, Exception {
