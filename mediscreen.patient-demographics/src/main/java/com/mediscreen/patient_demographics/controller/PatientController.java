@@ -3,12 +3,14 @@ package com.mediscreen.patient_demographics.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mediscreen.patient_demographics.model.Patient;
@@ -28,9 +30,11 @@ public class PatientController {
 
 //  Get Patient by givenName
 	@GetMapping("/patient")
-	public Patient getPatient(@RequestParam(name = "name") String name) {
-		Patient patient = patientService.getPatient(name);
-		return patient;
+	public List<Patient> getPatient(@RequestParam(name = "name") String name) {
+//		Patient patient = patientService.getPatient(name);
+//		return patient;
+	    return patientService.getPatient(name);
+
 	}
 	
 //  Get Patient by PatientID
@@ -42,6 +46,7 @@ public class PatientController {
 
 //	Add new Patient
 	@PostMapping("/patient/add")
+	@ResponseStatus(HttpStatus.CREATED)
 	public void addPatient(@RequestBody Patient patient) {
 		patientService.savePatient(patient);
 	}

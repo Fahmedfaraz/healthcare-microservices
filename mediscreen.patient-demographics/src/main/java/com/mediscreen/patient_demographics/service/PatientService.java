@@ -25,9 +25,9 @@ public class PatientService {
 	}
 
 //	// Get Patient by givenName
-	public Patient getPatient(String name) {
-		Patient patient = patientRepository.findByGivenName(name);
-		if (patient != null) {
+	public List<Patient> getPatient(String name) {
+		List<Patient> patient = patientRepository.findAllByGiven(name);
+		if (patient != null && !patient.isEmpty()) {
 			return patient;
 		} else {
 			throw new UserNotFoundException("Patient not found with name: " + name);

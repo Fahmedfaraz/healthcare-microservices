@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,7 +56,11 @@ class PatientControllerTest {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+	
+	@Test
+    void contextLoads() {
+	}
+	
 	@Test
 	void testGetPatients() throws Exception {
 		Patient patient1 = createSamplePatient(1L);
@@ -71,10 +76,12 @@ class PatientControllerTest {
 	@Test
 	void testGetPatient() throws Exception {
 		Patient patient = createSamplePatient(1L);
-		when(patientService.getPatient("John")).thenReturn(patient);
+		List<Patient> allPatient = new ArrayList<Patient>();
+		allPatient.add(patient);
+		when(patientService.getPatient("John")).thenReturn(allPatient);
 
 		mockMvc.perform(get("/patient").param("name", "John")).andExpect(status().isOk())
-				.andExpect(jsonPath("$.given").value("John")).andExpect(jsonPath("$.family").value("Smith"));
+				.andExpect(jsonPath("$[0].given").value("John")).andExpect(jsonPath("$[0].family").value("Smith"));
 	}
 
 	@Test
@@ -106,8 +113,8 @@ class PatientControllerTest {
 	void testUpdatePatient() throws Exception {
 
 		// Arrange
-		Patient updatedPatient = createSamplePatient(1L); // using helper method
-		updatedPatient.setFamily("Doe"); // simulate an update
+		Patient updatedPatient = createSamplePatient(1L); 
+		updatedPatient.setFamily("Doe");
 		updatedPatient.setGiven("John");
 
 		ObjectMapper objectMapper = new ObjectMapper();
