@@ -7,12 +7,13 @@
 -  🐳 Dockerized Setup for all services including DBs
 
 ## 🔧 Tech Stack
--  Java 17, Spring Boot 3, REST APIs
--  MySQL and MongoDB for data storage
--  Docker & Docker Compose for containerization
--  Maven, Git, Postman for build and testing
--  JUnit, Mockito (planned for testing)
-
+-  Backend: Java 17, Spring Boot 3, REST APIs
+-  Databases: MySQL and MongoDB for data storage
+-  Containerization: Docker & Docker Compose
+-  Build & Version Control: Maven, Git
+-  Testing & API Tools: Postman, JUnit, Mockito
+-  Code Coverage: JaCoCo
+  
 ## 🧱 Microservices Breakdown
 -  1️⃣ patient-demographics-service: CRUD APIs for patient data in MySQL
 -  2️⃣ dr-notes-service: Unstructured notes in MongoDB with REST APIs
