@@ -1,6 +1,10 @@
 package com.patientUI.patientDemographicUI.model;
 
+import java.beans.Transient;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -85,5 +89,27 @@ public class Patient {
 	public void setPatientId(Long patientId) {
 		this.patientId = patientId;
 	}
+	
+	// Method to convert your LocalDate to Date
+    @Transient
+    public String formattedDOB() {
+        // LocalDate localDate = get value of localDate from Optional<LocalDate> dob;
+
+        // Convert LocalDate to Date Object
+        ZoneId zoneId = ZoneId.systemDefault();
+        
+        ZonedDateTime zonedDateTime = dob.atStartOfDay().atZone(zoneId);
+        
+//        Date dob1 = Date.from(dob.toInstant());
+
+        LocalDate localDate = zonedDateTime.toLocalDate();
+
+        
+        // Formatting the date object
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(localDate);
+    
+        return formattedDate ;
+    }
     
 }

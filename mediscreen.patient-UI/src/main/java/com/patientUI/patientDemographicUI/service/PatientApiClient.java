@@ -21,7 +21,9 @@ public class PatientApiClient {
     }
 
     public PatientGet getPatient(Long id) {
-        return restTemplate.getForObject(baseUrl + "/patient/" + id, PatientGet.class);
+    	PatientGet pget = restTemplate.getForObject(baseUrl + "/patient/" + id, PatientGet.class);
+    	System.out.println("pget.dob" + pget.getDob() ); 
+        return pget;
     }
 
     public Patient createPatient(Patient dto) {

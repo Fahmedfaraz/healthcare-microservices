@@ -7,6 +7,8 @@ services:
       - MYSQL_DATABASE=patient-demographics
       - MYSQL_USER=mysql
       - MYSQL_PASSWORD=admin
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     networks:

@@ -1,5 +1,10 @@
 package com.patientUI.patientDemographicUI.model;
 
+import java.beans.Transient;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 //import jakarta.persistence.*;
@@ -16,6 +21,8 @@ public class PatientGet {
 	   private String given;
 	   
 	   private Date dob;
+	   
+//	   private Date dob;
 	   
 	   private String address;
 	   
@@ -79,4 +86,26 @@ public class PatientGet {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	// Method to convert your LocalDate to Date
+    @Transient
+    public String formattedDOB() {
+        // LocalDate localDate = get value of localDate from Optional<LocalDate> dob;
+
+        // Convert LocalDate to Date Object
+        ZoneId zoneId = ZoneId.systemDefault();
+        
+        ZonedDateTime zonedDateTime = dob.toInstant().atZone(zoneId);
+        
+        Date dob1 = Date.from(dob.toInstant());
+
+        LocalDate localDate = zonedDateTime.toLocalDate();
+
+        
+        // Formatting the date object
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(localDate);
+    
+        return formattedDate ;
+    }
 }

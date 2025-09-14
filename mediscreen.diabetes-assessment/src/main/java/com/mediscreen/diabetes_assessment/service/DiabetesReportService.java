@@ -33,14 +33,18 @@ public class DiabetesReportService {
 
 	public DiabetesReport generateReport(Long patientId) {
 		RiskLevel risk = null;
-
+		logger.info("generateReport-" + patientId);
 		Patient patient = patientClient.getPatientById(patientId);
+		logger.info("generateReport-response" + patient);
 		if (patient != null) {
 			String birthDate = new SimpleDateFormat("yyyy-MM-dd").format(patient.getDob());
 			String claculatedAge = getAge(birthDate);
 			int age = Integer.parseInt(claculatedAge);
 
+			logger.info("getNotesByPatientId-" + patientId);
 			List<PractitionerNotes> notes = doctorNoteClient.getNotesByPatientId(patientId);
+			
+			logger.info("getNotesByPatientId-" + notes);
 			int triggerCount = countTriggers(notes);
 
 			if (triggerCount <= 1) {
@@ -77,6 +81,7 @@ public class DiabetesReportService {
 			diabetesReport.setSex(patient.getSex());
 			diabetesReport.setNotes(notes);
 			diabetesReport.setDiabetesRisk(risk);
+			logger.info("diabetesReport-" + diabetesReport);
 			return diabetesReport;
 		} else {
 			throw new ResourceNotFoundException("Patient not found with PatientID: " + patientId);

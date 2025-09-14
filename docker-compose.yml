@@ -2,6 +2,7 @@
 include:
   - docker-compose-network.yml
   - mediscreen.diabetes-assessment/docker-compose.yml
+  - mediscreen.patient-UI/docker-compose.yml
   - mediscreen.patient-demographics/docker-compose.yml
   - mediscreen.practitioner-notes/docker-compose.yml
   

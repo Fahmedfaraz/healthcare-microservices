@@ -80,7 +80,7 @@ class PatientControllerTest {
 		allPatient.add(patient);
 		when(patientService.getPatient("John")).thenReturn(allPatient);
 
-		mockMvc.perform(get("/patient").param("name", "John")).andExpect(status().isOk())
+		mockMvc.perform(get("/patient/given").param("name", "John")).andExpect(status().isOk())
 				.andExpect(jsonPath("$[0].given").value("John")).andExpect(jsonPath("$[0].family").value("Smith"));
 	}
 

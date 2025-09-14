@@ -31,7 +31,7 @@ public class PatientController {
 	}
 
 //  Get Patient by givenName
-	@GetMapping("/patient")
+	@GetMapping("/patient/given")
 	public List<Patient> getPatient(@RequestParam(name = "name") String name) {
 //		Patient patient = patientService.getPatient(name);
 //		return patient;

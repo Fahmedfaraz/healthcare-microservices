@@ -53,7 +53,8 @@
 
     <div class="mb-3">
       <label class="form-label">DOB</label>
-      <input type="date" class="form-control" th:field="*{dob}">
+      <!-- <input type="date" class="form-control" th:field="*{dob}" th:value="*{formattedDOB}" id="dob" name="dob"> -->
+      <input type="date" class="form-control" th:value="${formattedDate}" id="dob" name="dob"> 
     </div>
 
     <div class="mb-3">
