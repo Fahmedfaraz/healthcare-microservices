@@ -8,8 +8,10 @@ services:
       - "27017:27017"
     networks:
       - mediscreen-network-main
-#      - mediscreen-network-pn
-
+    volumes:
+     - ./init-scripts:/docker-entrypoint-initdb.d
+    environment:
+     MONGO_INITDB_DATABASE: practitionernotes
   practitioner-notes:
     build:
       context: .
@@ -20,7 +22,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/practitioner-notes
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/practitionernotes
     networks:
       - mediscreen-network-main
 #      - mediscreen-network-pn
